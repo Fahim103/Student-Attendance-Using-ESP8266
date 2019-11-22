@@ -15,8 +15,8 @@ char *APssid = "NodeMCU";
 char *APpassword = "1234567890";
 
 ESP8266WebServer server(80);
-String getContentType(String filename); // convert the file extension to the MIME type
-bool handleFileRead(String path);       // send the right file to the client (if it exists)
+String getContentType(String filename);
+bool handleFileRead(String path);
 
 void setup()
 {
@@ -44,30 +44,29 @@ void loop()
     server.handleClient();
 }
 
+
+/**
+ * 
+ * All server-side file handling code was taken from the source below:
+ * https://shepherdingelectrons.blogspot.com/2019/04/esp8266-as-spiffs-http-server.html
+ * 
+ */
+
 void setupFileServer()
 {
-    if (MDNS.begin("esp8266"))
-    { // Start the mDNS responder for esp8266.local
-        Serial.println("mDNS responder started");
-    }
-    else
-    {
-        Serial.println("Error setting up MDNS responder!");
-    }
-
-    SPIFFS.begin(); // Start the SPI Flash Files System
+    SPIFFS.begin();
 
     server.onNotFound([]() {                                  // If the client requests any URI
         if (!handleFileRead(server.uri()))                    // send it if it exists
             server.send(404, "text/plain", "404: Not Found"); // otherwise, respond with a 404 (Not Found) error
     });
 
-    server.begin(); // Actually start the server
+    server.begin();
     Serial.println("HTTP server started");
 }
 
 String getContentType(String filename)
-{ // convert the file extension to the MIME type
+{
     if (filename.endsWith(".html"))
         return "text/html";
     else if (filename.endsWith(".css"))
@@ -81,7 +80,6 @@ String getContentType(String filename)
 
 bool handleFileRead(String path)
 {
-    // send the right file to the client (if it exists)
     Serial.println("handleFileRead: " + path);
     if (path.endsWith("/"))
         path += "index.html";                  // If a folder is requested, send the index file
