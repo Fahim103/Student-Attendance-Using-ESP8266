@@ -12,7 +12,7 @@ void writeMacsToFile(String macs)
     else
     {
         // Write data to file
-        Serial.println("Writing Mac to File.");
+        Serial.println("--Writing Mac to File.--");
         f.print(macs);
         f.close();
     }
