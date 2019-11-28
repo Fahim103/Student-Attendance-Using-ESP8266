@@ -8,7 +8,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-    <form id="attendanceForm" action="./attendance.php" method="POST">
+
+    <form id="attendanceFormProblematic" action="./attendance.php" method="POST">
         <label>Subject Name</label>
         <select id="subject" required>
             <option value="" selected disabled hidden>Select Subject</option>
@@ -24,14 +25,17 @@
             <option value="3">C</option>
         </select>
         <br />
-        <input type="submit" name="takeAttendance" value="Take Attendance">
+        
+        <label for="studentIDField">Student ID</label>
+        <input type="text" name="studentIDField" id="studentIDField" required>
+        <br />
+        <input type="submit" name="takeProblematicAttendance" value="Add Attendance">
     </form>
-
-    <a href="problematicAttendance.php">Problematic?</a>
+    <a href="index.php">Go to Homepage</a>
 </body>
 
     <script>
-        $("#attendanceForm").submit(function(e) {
+        $("#attendanceFormProblematic").submit(function(e) {
         e.preventDefault(); // avoid to execute the actual submit of the form.
 
         var form = $(this);
@@ -40,16 +44,19 @@
         console.log("URL IS : " + url);
         var subject = $('#subject :selected').text();
         var section = $('#section :selected').text();
+        var studentID = $('#studentIDField').val()
         console.log(subject);
         console.log(section);
+        console.log(studentID);
         $.ajax({
             type: "POST",
             url: url,
             //data: form.serialize(), // serializes the form's elements.
             data: {
-                "takeAttendance" : "takeAttendance",
+                "problematicAttendance" : "problematic",
                 "subject" : subject,
                 "section" : section,
+                "studentID" : studentID,
             },
             success: function(data)
             {
