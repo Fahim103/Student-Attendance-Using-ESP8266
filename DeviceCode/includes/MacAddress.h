@@ -40,11 +40,11 @@ String showMacAddressList()
         mac[5] = stat_info->bssid[5];
 
         s += String(mac[0], HEX);
-        s += "-" + String(mac[1], HEX);
-        s += "-" + String(mac[2], HEX);
-        s += "-" + String(mac[3], HEX);
-        s += "-" + String(mac[4], HEX);
-        s += "-" + String(mac[5], HEX);
+        s += ":" + String(mac[1], HEX);
+        s += ":" + String(mac[2], HEX);
+        s += ":" + String(mac[3], HEX);
+        s += ":" + String(mac[4], HEX);
+        s += ":" + String(mac[5], HEX);
 
         // Serial.print(s);
 
