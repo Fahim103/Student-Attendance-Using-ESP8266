@@ -4,7 +4,7 @@ const char *filename = "/macs.txt";
 
 void writeMacsToFile(String macs)
 {
-    File f = SPIFFS.open(filename, "w+");
+    File f = SPIFFS.open(filename, "a");
     if (!f)
     {
         Serial.println("---File Open Failed!---");
