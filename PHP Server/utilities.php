@@ -44,6 +44,9 @@ function searchMacAddress($macAddress, $fileNameWithExtention){
 
 /**
  * A method to search for given student by their id
+ * @param string $studentID
+ * @param string $fileNameWithExtension
+ * @return int $row 
  * Returns the row number
  */
 function searchStudentByID($studentID, $fileNameWithExtention){
