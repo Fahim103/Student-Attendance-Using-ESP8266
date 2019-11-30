@@ -7,8 +7,14 @@ A automated student attendance system wherein you connect to the local hotspot o
 
 - [WiFiManager](https://github.com/tzapu/WiFiManager)
 
+- [Composer](https://getcomposer.org/)
+
+- [PhpSpreadsheet](https://phpspreadsheet.readthedocs.io/en/latest/)
+
 ## References
 
 - [MAC Address Retrieval](https://github.com/esp8266/Arduino/issues/2100)
 
 - [SPIFFS File Handling](https://shepherdingelectrons.blogspot.com/2019/04/esp8266-as-spiffs-http-server.html)
+
+- [PhpSpreadsheet Setup & Tutorial](https://youtu.be/4ULDJ5LfdwU)
