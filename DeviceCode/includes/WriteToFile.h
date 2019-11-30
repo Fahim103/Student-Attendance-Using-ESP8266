@@ -17,3 +17,18 @@ void writeMacsToFile(String macs)
         f.close();
     }
 }
+
+void clearMacFile() {
+    File f = SPIFFS.open(filename, "w+");
+    if (!f)
+    {
+        Serial.println("---File Open Failed!---");
+    }
+    else
+    {
+        // Write data to file
+        Serial.println("--Writing Mac to File.--");
+        f.print("");
+        f.close();
+    }
+}
