@@ -11,6 +11,9 @@ A automated student attendance system wherein you connect to the local hotspot o
 
 - [PhpSpreadsheet](https://phpspreadsheet.readthedocs.io/en/latest/)
 
+https://github.com/acrobotic/Ai_Ardulib_SSD1306
+https://github.com/anunpanya/ESP8266_QRcode
+
 ## References
 
 - [MAC Address Retrieval](https://github.com/esp8266/Arduino/issues/2100)
