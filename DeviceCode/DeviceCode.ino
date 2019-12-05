@@ -28,17 +28,17 @@ void setup()
     setupAP(APssid, APpassword);
     setupFileServer();
     Serial.println(WiFi.softAPIP());
+    clearMacFile();
 }
 
 void loop()
 {
     Serial.println(WiFi.softAPIP());
-    delay(50);
+    delay(2000);
     Serial.println();
     String listOfMacs;
     listOfMacs += showMacAddressList();
     Serial.println(listOfMacs);
-
     writeMacsToFile(listOfMacs);
 
     server.handleClient();
