@@ -43,7 +43,6 @@ void loop()
 
     server.handleClient();
     // TODO: CREATE TURN OFF CONDITION.
-    // TODO: CLEAR MAC ADDRESS FILE.
 }
 
 
