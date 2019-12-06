@@ -8,7 +8,8 @@
 #include "./includes/MacAddress.h"
 #include "./includes/WriteToFile.h"
 
-#include "pages.h"
+#include "./includes/pages/login_page.h"
+#include "./includes/pages/hotspot_page.h"
 
 // Setup the access point.
 // #TODO Make this user-specified.
@@ -105,8 +106,9 @@ void setupFileServer()
     SPIFFS.begin();
 
     
-    server.on("/",handleRoot);
+    server.on("/", handleRoot);
     server.on("/login", HTTP_POST, handleLogin);
+    server.on("/hotspot", HTTP_POST, handleHotspot);
     server.onNotFound([]() {                                  // If the client requests any URI
         if (!handleFileRead(server.uri()))                    // send it if it exists
             server.send(404, "text/plain", "404: Not Found"); // otherwise, respond with a 404 (Not Found) error
@@ -148,23 +150,45 @@ bool handleFileRead(String path)
     return false; // If the file doesn't exist, return false
 }
 
+/*
 void handleWebsite(){
-  server.send(200,"text/html", configure);
+    server.send(200,"text/html", hotpost);
+}
+*/
+
+void handleHotspot(){
+    server.send(200,"text/html", hotspot);
+    if (server.hasArg("SSID") && server.hasArg("password"))
+    {
+        char *APssid = server.hasArg("SSID");
+        char *APpassword = server.hasArg("password")
+        setupAP(APssid, APpassword);
+        server.send(20, "text/html", configured);
+    } else {
+        server.send(401, "text/plain", "401: Invalid");
+    }
 }
 
-void handleRoot() {                          // When URI / is requested, make login Webpage
-  server.send(200, "text/html", login);
+void handleRoot() {
+    server.send(200, "text/html", login);
 }
 
-void handleLogin() {                         //Handle POST Request
-  if( ! server.hasArg("username") || ! server.hasArg("password") 
-      || server.arg("username") == NULL || server.arg("password") == NULL) { // Request without data
-    server.send(400, "text/plain", "400: Invalid Request");         // Print Data on screen
-    return;
-  }
-  if(server.arg("username") == "admin" && server.arg("password") == "admin") { // If username and the password are correct
-    server.send(200, "text/html", "<h1>Hello, " + server.arg("username") + "!</h1><p>Login successful</p>");
-  } else {                                                                              // Username and password don't match
-    server.send(401, "text/plain", "401: Invalid Credentials");
-  }
+void handleLogin()
+{
+    //Handle POST Request
+    if (!server.hasArg("username") || !server.hasArg("password"))
+    {
+        server.send(400, "text/plain", "400: Invalid Request");
+        return;
+    }
+    if (server.arg("username") == "admin" && server.arg("password") == "admin")
+    {
+        // If username and the password are correct
+        server.send(200, "text/html", "<h1>Hello, " + server.arg("username") + "!</h1><p>Login successful</p>");
+    }
+    else
+    {
+        // Username and password don't match
+        server.send(401, "text/plain", "401: Invalid Credentials");
+    }
 }
