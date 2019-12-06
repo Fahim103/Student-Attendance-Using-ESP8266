@@ -29,6 +29,7 @@ void clearMacFile()
     else
     {
         // Write data to file
+        Serial.println("---File Cleared!---");
         SPIFFS.remove(filename);
     }
 }
