@@ -8,6 +8,8 @@
 #include "./includes/MacAddress.h"
 #include "./includes/WriteToFile.h"
 
+#include "configuration_page.h"
+
 // Setup the access point.
 // #TODO Make this user-specified.
 
@@ -102,18 +104,18 @@ void setupFileServer()
 {
     SPIFFS.begin();
 
+    
+    server.on("/",handleRoot);
+    server.on("/login", HTTP_POST, handleLogin);
     server.onNotFound([]() {                                  // If the client requests any URI
         if (!handleFileRead(server.uri()))                    // send it if it exists
             server.send(404, "text/plain", "404: Not Found"); // otherwise, respond with a 404 (Not Found) error
     });
 
-    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/html", index_html, processor);
-    });
-
     server.begin();
     Serial.println("HTTP server started");
 }
+
 
 String getContentType(String filename)
 {
@@ -141,6 +143,28 @@ bool handleFileRead(String path)
         file.close();                                       // Then close the file again
         return true;
     }
+    
     Serial.println("\tFile Not Found");
     return false; // If the file doesn't exist, return false
+}
+
+void handleWebsite(){
+  server.send(200,"text/html", configure);
+}
+
+void handleRoot() {                          // When URI / is requested, make login Webpage
+  server.send(200, "text/html", "<form action=\"/login\" method=\"POST\"><input type=\"text\" name=\"uname\" placeholder=\"Username\"></br><input type=\"password\" name=\"pass\" placeholder=\"Password\"></br><input type=\"submit\" value=\"Login\"></form><p>Try 'User1' and 'Pass1' ...</p>");
+}
+
+void handleLogin() {                         //Handle POST Request
+  if( ! server.hasArg("uname") || ! server.hasArg("pass") 
+      || server.arg("uname") == NULL || server.arg("pass") == NULL) { // Request without data
+    server.send(400, "text/plain", "400: Invalid Request");         // Print Data on screen
+    return;
+  }
+  if(server.arg("uname") == "admin" && server.arg("pass") == "admin") { // If username and the password are correct
+    server.send(200, "text/html", "<h1>Hello, " + server.arg("uname") + "!</h1><p>Login successful</p>");
+  } else {                                                                              // Username and password don't match
+    server.send(401, "text/plain", "401: Invalid Credentials");
+  }
 }
