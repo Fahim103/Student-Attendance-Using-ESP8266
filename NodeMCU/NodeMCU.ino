@@ -8,7 +8,7 @@
 #include "./includes/MacAddress.h"
 #include "./includes/WriteToFile.h"
 
-#include "configuration_page.h"
+#include "pages.h"
 
 // Setup the access point.
 // #TODO Make this user-specified.
@@ -153,7 +153,7 @@ void handleWebsite(){
 }
 
 void handleRoot() {                          // When URI / is requested, make login Webpage
-  server.send(200, "text/html", "<form action=\"/login\" method=\"POST\"><input type=\"text\" name=\"uname\" placeholder=\"Username\"></br><input type=\"password\" name=\"pass\" placeholder=\"Password\"></br><input type=\"submit\" value=\"Login\"></form><p>Try 'User1' and 'Pass1' ...</p>");
+  server.send(200, "text/html", login);
 }
 
 void handleLogin() {                         //Handle POST Request
