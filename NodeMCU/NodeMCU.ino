@@ -29,13 +29,13 @@ void setup()
     delay(1000);
     setupAP(APssid, APpassword);
     setupFileServer();
-    Serial.println(WiFi.softAPIP());
+    // Serial.println(WiFi.softAPIP());
     clearMacFile();
 }
 
 void loop()
 {
-    Serial.println(WiFi.softAPIP());
+    // Serial.println(WiFi.softAPIP());
     delay(1000);
     Serial.println();
     String listOfMacs;
@@ -105,6 +105,10 @@ void setupFileServer()
     server.onNotFound([]() {                                  // If the client requests any URI
         if (!handleFileRead(server.uri()))                    // send it if it exists
             server.send(404, "text/plain", "404: Not Found"); // otherwise, respond with a 404 (Not Found) error
+    });
+
+    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send_P(200, "text/html", index_html, processor);
     });
 
     server.begin();
