@@ -1,9 +1,9 @@
-const char hotspot[] PROGMEM = R"=====(
+const char success[] PROGMEM = R"=====(
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Configure Hotspot</title>
+    <title>Registration</title>
     <style type="text/css">
         :root {
             --dark-main-primary-color: #f5f5dc;
@@ -67,7 +67,7 @@ const char hotspot[] PROGMEM = R"=====(
             padding: 10px;
             margin-top: 20px;
             color: #fff;
-            background-color: tomato;
+            background-color: var(--btn-primary-color);
             cursor: pointer;
             border: none;
         }
@@ -78,7 +78,7 @@ const char hotspot[] PROGMEM = R"=====(
             padding: 10px;
             margin-top: 20px;
             color: #fff;
-            background-color: red;
+            background-color: var(--btn-primary-hover-color);
             cursor: pointer;
         }
     </style>
@@ -87,18 +87,7 @@ const char hotspot[] PROGMEM = R"=====(
 <body>
     <div id="registration-container">
         <div class="form-wrap">
-            <h1>Configure Hotspot</h1>
-            <form action="/success" method="POST">
-                <div class="form-group">
-                    <label for="ssid">SSID</label>
-                    <input type="text" name="ssid" id="ssid" required autofocus>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password" required>
-                </div>
-                <button type="submit" class="btn" name="hotspot">Start Hotspot</button>
-            </form>
+            <h1>Success!</h1>
         </div>
     </div>
 </body>

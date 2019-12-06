@@ -10,6 +10,9 @@
 
 #include "./includes/pages/login_page.h"
 #include "./includes/pages/hotspot_page.h"
+#include "./includes/pages/success_page.h"
+// #include "./includes/pages/configured_page.h"
+
 
 // Setup the access point.
 // #TODO Make this user-specified.
@@ -109,6 +112,7 @@ void setupFileServer()
     server.on("/", handleRoot);
     server.on("/login", HTTP_POST, handleLogin);
     server.on("/hotspot", HTTP_POST, handleHotspot);
+    server.on("/success", HTTP_POST, handleSuccess);
     server.onNotFound([]() {                                  // If the client requests any URI
         if (!handleFileRead(server.uri()))                    // send it if it exists
             server.send(404, "text/plain", "404: Not Found"); // otherwise, respond with a 404 (Not Found) error
@@ -150,23 +154,34 @@ bool handleFileRead(String path)
     return false; // If the file doesn't exist, return false
 }
 
-/*
 void handleWebsite(){
-    server.send(200,"text/html", hotpost);
+    server.send(200,"text/html", login);
 }
-*/
 
 void handleHotspot(){
     server.send(200,"text/html", hotspot);
-    if (server.hasArg("SSID") && server.hasArg("password"))
-    {
-        char *APssid = server.hasArg("SSID");
-        char *APpassword = server.hasArg("password")
-        setupAP(APssid, APpassword);
-        server.send(20, "text/html", configured);
-    } else {
-        server.send(401, "text/plain", "401: Invalid");
-    }
+}
+
+void handleSuccess(){
+    String ssid = server.arg("ssid");
+    String password = server.arg("password");
+
+    // Length (with one extra character for the null terminator)
+    int ssid_len = ssid.length() + 1;
+    int password_len = password.length() + 1;
+
+    // Prepare the character array (the buffer) 
+    char ssid_arr[ssid_len];
+    char pass_arr[password_len];
+
+    // Copy it over 
+    ssid.toCharArray(ssid_arr, ssid_len);
+    password.toCharArray(pass_arr, password_len);
+
+    setupAP(ssid_arr, pass_arr);
+    setupFileServer();
+    
+    server.send(200,"text/html", success);
 }
 
 void handleRoot() {
@@ -184,7 +199,7 @@ void handleLogin()
     if (server.arg("username") == "admin" && server.arg("password") == "admin")
     {
         // If username and the password are correct
-        server.send(200, "text/html", "<h1>Hello, " + server.arg("username") + "!</h1><p>Login successful</p>");
+        server.send(200, "text/html", hotspot);
     }
     else
     {
