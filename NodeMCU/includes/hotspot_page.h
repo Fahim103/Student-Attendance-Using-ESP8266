@@ -1,21 +1,9 @@
 const char configure[] PROGMEM = R"=====(
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Welcome Page</title>
-    </head>
-    <body>
-        Welcome to ESP8266 Attendance system!
-    </body>
-</html>
-)=====";
-
-const char login[] PROGMEM = R"=====(
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Registration</title>
+    <title>Configure Hotspot</title>
     <style type="text/css">
         :root {
             --dark-main-primary-color: #f5f5dc;
@@ -100,16 +88,16 @@ const char login[] PROGMEM = R"=====(
     <div id="registration-container">
         <div class="form-wrap">
             <h1>Log In</h1>
-            <form action="/login" method="POST">
+            <form action="/hotspot" method="POST">
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" name="username" id="username" required autofocus>
+                    <label for="ssid">SSID</label>
+                    <input type="text" name="ssid" id="ssid" required autofocus>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" name="password" id="password" required>
                 </div>
-                <button type="submit" class="btn" name="register">Log In</button>
+                <button type="submit" class="btn" name="hotspot">Start Hotspot</button>
             </form>
         </div>
     </div>
