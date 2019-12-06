@@ -157,13 +157,13 @@ void handleRoot() {                          // When URI / is requested, make lo
 }
 
 void handleLogin() {                         //Handle POST Request
-  if( ! server.hasArg("uname") || ! server.hasArg("pass") 
-      || server.arg("uname") == NULL || server.arg("pass") == NULL) { // Request without data
+  if( ! server.hasArg("username") || ! server.hasArg("password") 
+      || server.arg("username") == NULL || server.arg("password") == NULL) { // Request without data
     server.send(400, "text/plain", "400: Invalid Request");         // Print Data on screen
     return;
   }
-  if(server.arg("uname") == "admin" && server.arg("pass") == "admin") { // If username and the password are correct
-    server.send(200, "text/html", "<h1>Hello, " + server.arg("uname") + "!</h1><p>Login successful</p>");
+  if(server.arg("username") == "admin" && server.arg("password") == "admin") { // If username and the password are correct
+    server.send(200, "text/html", "<h1>Hello, " + server.arg("username") + "!</h1><p>Login successful</p>");
   } else {                                                                              // Username and password don't match
     server.send(401, "text/plain", "401: Invalid Credentials");
   }
