@@ -29,7 +29,7 @@
         <label for="studentIDField">Student ID</label>
         <input type="text" name="studentIDField" id="studentIDField" required>
         <br />
-        <input type="submit" name="takeProblematicAttendance" value="Add Attendance">
+        <input type="submit" id="takeAttendance" name="takeProblematicAttendance" value="Add Attendance">
     </form>
     <a href="index.php">Go to Homepage</a>
 </body>
@@ -48,6 +48,7 @@
         console.log(subject);
         console.log(section);
         console.log(studentID);
+        $('#takeAttendance').attr("disabled", "disabled");
         $.ajax({
             type: "POST",
             url: url,
@@ -61,6 +62,7 @@
             success: function(data)
             {
                 alert(data); // show response from the php script.
+                $('#takeAttendance').removeAttr("disabled");
             }
             });
         });

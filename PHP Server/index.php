@@ -24,7 +24,7 @@
             <option value="3">C</option>
         </select>
         <br />
-        <input type="submit" name="takeAttendance" value="Take Attendance">
+        <input type="submit" id="takeAttendance" name="takeAttendance" value="Take Attendance">
     </form>
 
     <a href="problematicAttendance.php">Problematic?</a>
@@ -42,6 +42,7 @@
         var section = $('#section :selected').text();
         console.log(subject);
         console.log(section);
+        $('#takeAttendance').attr("disabled", "disabled");
         $.ajax({
             type: "POST",
             url: url,
@@ -54,6 +55,7 @@
             success: function(data)
             {
                 alert(data); // show response from the php script.
+                $('#takeAttendance').removeAttr("disabled");
             }
             });
         });
