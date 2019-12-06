@@ -34,7 +34,7 @@ void setup()
 void loop()
 {
     Serial.println(WiFi.softAPIP());
-    delay(2000);
+    delay(1000);
     Serial.println();
     String listOfMacs;
     listOfMacs += showMacAddressList();
