@@ -40,6 +40,8 @@ void loop()
     Serial.println();
     String listOfMacs;
     listOfMacs += showMacAddressList();
+    /*
+    TODO:
     Serial.print("---BEFORE---");
     Serial.println(listOfMacs);
     String macs = listOfMacs;
@@ -48,11 +50,12 @@ void loop()
     {
         int delimiterIndex = macs.indexOf("\n");
         String macAddress = macs.substring(0, delimiterIndex);
-
+        Serial.println("Some index: " + delimiterIndex);
         bool exists = false;
 
         for (String macFromList : macAddresses)
         {
+            Serial.println("Comparing" + macFromList + " To: " + macAddress);
             if (macAddress == macFromList)
             {
                 Serial.print("MAC Already Exists");
@@ -80,9 +83,9 @@ void loop()
 
     }
     Serial.print("---AFTER---");
-    Serial.println(listOfMacs);
-
-
+    Serial.println(macs);
+    */
+    writeMacsToFile(listOfMacs);
     server.handleClient();
     // TODO: CREATE TURN OFF CONDITION.
 }
