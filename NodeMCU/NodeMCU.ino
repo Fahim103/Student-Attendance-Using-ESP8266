@@ -18,6 +18,8 @@ ESP8266WebServer server(80);
 String getContentType(String filename);
 bool handleFileRead(String path);
 
+String macAddresses[40] = {""}; // A list of mac addresses from the station.
+
 void setup()
 {
 
@@ -38,8 +40,48 @@ void loop()
     Serial.println();
     String listOfMacs;
     listOfMacs += showMacAddressList();
+    Serial.print("---BEFORE---");
     Serial.println(listOfMacs);
-    writeMacsToFile(listOfMacs);
+    String macs = listOfMacs;
+
+    while (macs.indexOf("\n") != -1)
+    {
+        int delimiterIndex = macs.indexOf("\n");
+        String macAddress = macs.substring(0, delimiterIndex);
+
+        bool exists = false;
+
+        for (String macFromList : macAddresses)
+        {
+            if (macAddress == macFromList)
+            {
+                Serial.print("MAC Already Exists");
+                exists = true;
+                break;
+            }
+        }
+
+        if (!exists)
+        {
+            int i = 0;
+            for (String macInList : macAddresses)
+            {
+                if (macInList == "")
+                {
+                    Serial.println("Writing a MAC");
+                    macInList = macAddress;
+                    writeMacsToFile(macAddress);
+                    break;
+                }
+            }
+        }
+
+        macs.remove(0, delimiterIndex - 1);
+
+    }
+    Serial.print("---AFTER---");
+    Serial.println(listOfMacs);
+
 
     server.handleClient();
     // TODO: CREATE TURN OFF CONDITION.
