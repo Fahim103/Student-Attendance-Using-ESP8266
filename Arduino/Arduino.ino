@@ -61,11 +61,11 @@ void setup()
 
     // Print the section label under the QR Code.
     // TODO: Set this from the user end.
-    tft.setFont(NULL);
-    tft.setCursor(10, 270);
-    tft.setTextColor(BLACK);
-    tft.setTextSize(2);
-    tft.print("Section C");
+    // tft.setFont(NULL);
+    // tft.setCursor(10, 270);
+    // tft.setTextColor(BLACK);
+    // tft.setTextSize(2);
+    // tft.print("Section C");
 }
 
 void loop()

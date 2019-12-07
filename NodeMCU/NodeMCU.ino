@@ -46,10 +46,10 @@ void loop()
     Serial.println();
     String listOfMacs;
     listOfMacs += showMacAddressList();
+    Serial.println(listOfMacs);
     /*
     TODO:
     Serial.print("---BEFORE---");
-    Serial.println(listOfMacs);
     String macs = listOfMacs;
 
     while (macs.indexOf("\n") != -1)

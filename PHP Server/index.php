@@ -70,6 +70,7 @@
         console.log(subject);
         console.log(section);
         $('#takeAttendance').attr("disabled", "disabled");
+        $('#takeAttendance').addClass("btn-warning");
         $.ajax({
             type: "POST",
             url: url,
@@ -82,10 +83,14 @@
             success: function (data) {
                 alert(data); // show response from the php script.
                 $('#takeAttendance').removeAttr("disabled");
+                $('#takeAttendance').removeClass("btn-warning");
+
             },
             error:function(msg)
             {
-                alert(msg);
+                alert("Error " . msg);
+                $('#takeAttendance').removeAttr("disabled");
+                $('#takeAttendance').removeClass("btn-warning");
             }
         });
     });

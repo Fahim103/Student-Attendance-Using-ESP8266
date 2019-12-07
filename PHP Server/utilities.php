@@ -2,7 +2,7 @@
 
 require 'vendor/autoload.php';
 
-// $macAddressFileName = './mac.txt'; // TODO : THIS WILL BE RETRIVED FROM ESP8266 -> CHANGE IP TO
+$macAddressFileName = './mac.txt'; // TODO : THIS WILL BE RETRIVED FROM ESP8266 -> CHANGE IP TO
 $macAddressFileName = 'http://192.168.135.135/macs.txt'; // TODO: USE THIS FOR FINAL PROJECT VERSION
 // $fileNameWithExtention = 'SubjectName_Section_A.xlsx'; used for test purpose
 $foundMac = false;
