@@ -71,9 +71,9 @@
     <h1 id="showssid">SSID: none</h1>
     <h1 id="showkey">Passphrase: none</h1>
     <div id="qrcode"></div>
-    <script src="jquery-3.4.1.min.js"></script>
-    <script src="jquery.qrcode.min.js"></script>
-    <script src="jquery.storage.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/jquery.qrcode.min.js"></script>
+    <script src="js/jquery.storage.js"></script>
     <script type="text/javascript">
         function escape_string (string) {
             var to_escape = ['\\', ';', ',', ':', '"'];
